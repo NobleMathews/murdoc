@@ -1,0 +1,180 @@
+# Handling Licenses
+
+A project can have multiple licenses associated with it. Currently murdock appends all discovered license in a project into a list of licenses which it reports back.
+
+:::{Important}
+Murdock does not distinguish which parts of a software project are covered under which license
+:::
+
+The following table provides the necessary regular expression to search for any GitHub (or GitLab, BitBucket etc.) source code repository to identify the license. The following files can be checked for the license information:
+1. LICENSE
+2. LICENSE.md
+3. COPYING
+4. COPYING.md
+5. LICENSE.*
+6. COPYING.*
+
+The table of regular expression matches for different licenses is given below:
+
+| License                                                                  | Versions                      | Regex                                       |
+|--------------------------------------------------------------------------|-------------------------------|---------------------------------------------|
+| Academic Free License                                                    | 3.0                           | AFL                                         |
+| Apache Software License                                                  | 2.0                           | Apache                                      |
+| Apple Public Source License                                              |                               | Apple                                       |
+| Artistic License                                                         | 2.0                           | Artistic                                    |
+| Attribution Assurance License                                            |                               | AAL                                         |
+| Bittorrent Open Source License                                           |                               | Bittorrent                                  |
+| Boost Software License                                                   | 1.0                           | Boost Software License                      |
+| BSD 2-Clause License                                                     |                               | BSD 2-Clause                                |
+| BSD 3-Clause License                                                     |                               | BSD 3-Clause                                |
+| BSD 4-Clause License                                                     |                               | BSD 4-Clause                                |
+| BSD Zero Clause license                                                  |                               | BSD Zero Clause License                     |
+| CeCILL Free Software License                                             | 2.1                           | CeCILL                                      |
+| Common Development and Distribution License                              |                               | CDDL                                        |
+| Creative Commons Attribution 4.0 International Public License            | 4.0                           | Creative Commons Attribution 4.0            |
+| Creative Commons Attribution-ShareAlike 4.0 International Public LIcense | 4.0                           | Creative Commons Attribution-ShareAlike 4.0 |
+| Creative Commons Legal Code                                              | 1.0                           | CC0                                         |
+| Clear BSD License                                                        |                               | Clear BSD                                   |
+| Do What The F*ck You Want To Public License                              | 2                             | DO WHAT THE                                 |
+| Eclipse Public License                                                   | 1.0                           |                                             |
+| 2.0                                                                      | Eclipse Public License        |                                             |
+| Educational Community License                                            | 2.0                           | Educational Community License               |
+| Eiffel Forum License                                                     |                               | Eiffel                                      |
+| European Union Public License                                            | 1.1                           |                                             |
+| 1.2                                                                      | EUPL                          |                                             |
+| GNU Affero General Public License                                        | 3.0                           | AGPL                                        |
+| GNU General Public License                                               | 2.0                           |                                             |
+| 3.0                                                                      | GNU General Public License    |                                             |
+| GNU Lesser General Public License                                        | 2.1                           |                                             |
+| 3.0                                                                      | Lesser General Public License |                                             |
+| Historical Permission Notice and Disclaimer                              |                               | HPND                                        |
+| IBM Public LIcense                                                       |                               | IBM Public License                          |
+| Intel Open Source License                                                |                               | Intel Open Source License                   |
+| ISC License                                                              |                               | ISC License                                 |
+| LaTeX Project Public License                                             | 1.3c                          | LaTeX Project Public License                |
+| Microsoft Public License                                                 |                               | Ms-PL                                       |
+| Microsoft Reciprocal License                                             |                               | Ms-RL                                       |
+| MirOS License                                                            |                               | MirOS                                       |
+| MIT License                                                              |                               | MIT License                                 |
+| MIT No Attribution                                                       |                               | MIT No Attribution                          |
+| Mozilla Public License                                                   | 2.0                           | Mozilla Public License                      |
+| Mulan Permissive Software License                                        | 2.0                           | MulanPSL2                                   |
+| Netizen Open Source License                                              |                               | Netizen                                     |
+| Netscape Public License                                                  |                               | Netscape Public License                     |
+| Nokia Open Source License                                                |                               | Nokia Open Source License                   |
+| Open Database License                                                    | 1.0                           | ODbL                                        |
+| Open Data Commons Attribution License                                    |                               | Open Data Commons Attribution License       |
+| Open Software License                                                    | 3.0                           | Open Software License                       |
+| PostgreSQL License                                                       |                               | PostgreSQL License                          |
+| Python Software Foundation License                                       |                               | Python Software Foundation License          |
+| Python License                                                           |                               | Python License                              |
+| Public Domain                                                            |                               | Public Domain                               |
+| Q Public License                                                         |                               | Q Public License                            |
+| RealNetworks Public License                                              |                               | RealNetworks Public License                 |
+| Repoze Public License                                                    |                               | Repoze                                      |
+| SIL Open Font License                                                    | 1.1                           | SIL Open Font License                       |
+| Sleepycat License                                                        |                               | Sleepycat                                   |
+| Sun Public License                                                       |                               | Sun Public License                          |
+| Sybase Open Watcom Public License                                        |                               | Watcom                                      |
+| Universal Permissive License                                             | 1.0                           | Universal Permissive License                |
+| University of Illinois/NCSA Open Source License                          |                               | NCSA                                        |
+| Unlicense                                                                |                               | unlicense                                   |
+| VIM License                                                              |                               | VIM LICENSE                                 |
+| Vovida Software License                                                  |                               | Vovida                                      |
+| W3C License                                                              |                               | W3C License                                 |
+| X.Net License                                                            |                               | X.Net License                               |
+| zlib License                                                             |                               | zlib Licenqs                                |
+| Zope Public License                                                      |                               | Zope                                        |
+
+Source: [https://github.com/licensee/licensee/blob/master/lib/licensee/project_files/license_file.rb#L34](https://github.com/licensee/licensee/blob/master/lib/licensee/project_files/license_file.rb#L34)
+
+:::{note}
+The aforementioned list is pending modification to better work with the set **PyPI** uses
+```
+PYPI_LIC = [
+    "Aladdin Free Public License (AFPL)",
+    "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+    "CeCILL-B Free Software License Agreement (CECILL-B)",
+    "CeCILL-C Free Software License Agreement (CECILL-C)",
+    "DFSG approved",
+    "Eiffel Forum License (EFL)",
+    "Free For Educational Use",
+    "Free For Home Use",
+    "Free To Use But Restricted",
+    "Free for non-commercial use",
+    "Freely Distributable",
+    "Freeware",
+    "GUST Font License 1.0",
+    "GUST Font License 2006-09-30",
+    "Netscape Public License (NPL)",
+    "Nokia Open Source License (NOKOS)",
+    "OSI Approved",
+    "OSI Approved :: Academic Free License (AFL)",
+    "OSI Approved :: Apache Software License",
+    "OSI Approved :: Apple Public Source License",
+    "OSI Approved :: Artistic License",
+    "OSI Approved :: Attribution Assurance License",
+    "OSI Approved :: BSD License",
+    "OSI Approved :: Boost Software License 1.0 (BSL-1.0)",
+    "OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)",
+    "OSI Approved :: Common Development and Distribution License 1.0 (CDDL-1.0)",
+    "OSI Approved :: Common Public License",
+    "OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)",
+    "OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)",
+    "OSI Approved :: Eiffel Forum License",
+    "OSI Approved :: European Union Public Licence 1.0 (EUPL 1.0)",
+    "OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)",
+    "OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)",
+    "OSI Approved :: GNU Affero General Public License v3",
+    "OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "OSI Approved :: GNU Free Documentation License (FDL)",
+    "OSI Approved :: GNU General Public License (GPL)",
+    "OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    "OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+    "OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
+    "OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "OSI Approved :: GNU Library or Lesser General Public License (LGPL)",
+    "OSI Approved :: Historical Permission Notice and Disclaimer (HPND)",
+    "OSI Approved :: IBM Public License",
+    "OSI Approved :: ISC License (ISCL)",
+    "OSI Approved :: Intel Open Source License",
+    "OSI Approved :: Jabber Open Source License",
+    "OSI Approved :: MIT License",
+    "OSI Approved :: MIT No Attribution License (MIT-0)",
+    "OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)",
+    "OSI Approved :: MirOS License (MirOS)",
+    "OSI Approved :: Motosoto License",
+    "OSI Approved :: Mozilla Public License 1.0 (MPL)",
+    "OSI Approved :: Mozilla Public License 1.1 (MPL 1.1)",
+    "OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "OSI Approved :: Nethack General Public License",
+    "OSI Approved :: Nokia Open Source License",
+    "OSI Approved :: Open Group Test Suite License",
+    "OSI Approved :: Open Software License 3.0 (OSL-3.0)",
+    "OSI Approved :: PostgreSQL License",
+    "OSI Approved :: Python License (CNRI Python License)",
+    "OSI Approved :: Python Software Foundation License",
+    "OSI Approved :: Qt Public License (QPL)",
+    "OSI Approved :: Ricoh Source Code Public License",
+    "OSI Approved :: SIL Open Font License 1.1 (OFL-1.1)",
+    "OSI Approved :: Sleepycat License",
+    "OSI Approved :: Sun Industry Standards Source License (SISSL)",
+    "OSI Approved :: Sun Public License",
+    "OSI Approved :: The Unlicense (Unlicense)",
+    "OSI Approved :: Universal Permissive License (UPL)",
+    "OSI Approved :: University of Illinois/NCSA Open Source License",
+    "OSI Approved :: Vovida Software License 1.0",
+    "OSI Approved :: W3C License",
+    "OSI Approved :: X.Net License",
+    "OSI Approved :: Zope Public License",
+    "OSI Approved :: zlib/libpng License",
+    "Other/Proprietary License",/1_Overview.html#
+    "Public Domain",
+    "Repoze Public Licens/1_Overview.html#e",
+]
+```
+:::

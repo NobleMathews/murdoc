@@ -1,0 +1,656 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Handling Python" href="python.html" /><link rel="prev" title="Execution Pipeline" href="Execution_Pipeline.html" />
+
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+        <title>Handling Licenses - murdock documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">murdock  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">murdock  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Murdock:
+</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1_Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Execution_Pipeline.html">Execution Pipeline</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Handling Licenses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Specific:
+</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Handling Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="go.html">Handling Go</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javascript.html">Handling JavaScript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="java.html">Handling Java</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rust.html">Handling Rust</a></li>
+<li class="toctree-l1"><a class="reference internal" href="php.html">Handling PHP</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing:
+</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="2_Adding_Language_Support.html">Adding Support for a new language</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="handling-licenses">
+<h1>Handling Licenses<a class="headerlink" href="#handling-licenses" title="Permalink to this headline">#</a></h1>
+<p>A project can have multiple licenses associated with it. Currently murdock appends all discovered license in a project into a list of licenses which it reports back.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Murdock does not distinguish which parts of a software project are covered under which license</p>
+</div>
+<p>The following table provides the necessary regular expression to search for any GitHub (or GitLab, BitBucket etc.) source code repository to identify the license. The following files can be checked for the license information:</p>
+<ol class="arabic simple">
+<li><p>LICENSE</p></li>
+<li><p>LICENSE.md</p></li>
+<li><p>COPYING</p></li>
+<li><p>COPYING.md</p></li>
+<li><p>LICENSE.*</p></li>
+<li><p>COPYING.*</p></li>
+</ol>
+<p>The table of regular expression matches for different licenses is given below:</p>
+<div class="table-wrapper"><table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>License</p></th>
+<th class="head"><p>Versions</p></th>
+<th class="head"><p>Regex</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Academic Free License</p></td>
+<td><p>3.0</p></td>
+<td><p>AFL</p></td>
+</tr>
+<tr class="row-odd"><td><p>Apache Software License</p></td>
+<td><p>2.0</p></td>
+<td><p>Apache</p></td>
+</tr>
+<tr class="row-even"><td><p>Apple Public Source License</p></td>
+<td><p></p></td>
+<td><p>Apple</p></td>
+</tr>
+<tr class="row-odd"><td><p>Artistic License</p></td>
+<td><p>2.0</p></td>
+<td><p>Artistic</p></td>
+</tr>
+<tr class="row-even"><td><p>Attribution Assurance License</p></td>
+<td><p></p></td>
+<td><p>AAL</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bittorrent Open Source License</p></td>
+<td><p></p></td>
+<td><p>Bittorrent</p></td>
+</tr>
+<tr class="row-even"><td><p>Boost Software License</p></td>
+<td><p>1.0</p></td>
+<td><p>Boost Software License</p></td>
+</tr>
+<tr class="row-odd"><td><p>BSD 2-Clause License</p></td>
+<td><p></p></td>
+<td><p>BSD 2-Clause</p></td>
+</tr>
+<tr class="row-even"><td><p>BSD 3-Clause License</p></td>
+<td><p></p></td>
+<td><p>BSD 3-Clause</p></td>
+</tr>
+<tr class="row-odd"><td><p>BSD 4-Clause License</p></td>
+<td><p></p></td>
+<td><p>BSD 4-Clause</p></td>
+</tr>
+<tr class="row-even"><td><p>BSD Zero Clause license</p></td>
+<td><p></p></td>
+<td><p>BSD Zero Clause License</p></td>
+</tr>
+<tr class="row-odd"><td><p>CeCILL Free Software License</p></td>
+<td><p>2.1</p></td>
+<td><p>CeCILL</p></td>
+</tr>
+<tr class="row-even"><td><p>Common Development and Distribution License</p></td>
+<td><p></p></td>
+<td><p>CDDL</p></td>
+</tr>
+<tr class="row-odd"><td><p>Creative Commons Attribution 4.0 International Public License</p></td>
+<td><p>4.0</p></td>
+<td><p>Creative Commons Attribution 4.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Creative Commons Attribution-ShareAlike 4.0 International Public LIcense</p></td>
+<td><p>4.0</p></td>
+<td><p>Creative Commons Attribution-ShareAlike 4.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Creative Commons Legal Code</p></td>
+<td><p>1.0</p></td>
+<td><p>CC0</p></td>
+</tr>
+<tr class="row-even"><td><p>Clear BSD License</p></td>
+<td><p></p></td>
+<td><p>Clear BSD</p></td>
+</tr>
+<tr class="row-odd"><td><p>Do What The F*ck You Want To Public License</p></td>
+<td><p>2</p></td>
+<td><p>DO WHAT THE</p></td>
+</tr>
+<tr class="row-even"><td><p>Eclipse Public License</p></td>
+<td><p>1.0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>2.0</p></td>
+<td><p>Eclipse Public License</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Educational Community License</p></td>
+<td><p>2.0</p></td>
+<td><p>Educational Community License</p></td>
+</tr>
+<tr class="row-odd"><td><p>Eiffel Forum License</p></td>
+<td><p></p></td>
+<td><p>Eiffel</p></td>
+</tr>
+<tr class="row-even"><td><p>European Union Public License</p></td>
+<td><p>1.1</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>1.2</p></td>
+<td><p>EUPL</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>GNU Affero General Public License</p></td>
+<td><p>3.0</p></td>
+<td><p>AGPL</p></td>
+</tr>
+<tr class="row-odd"><td><p>GNU General Public License</p></td>
+<td><p>2.0</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>3.0</p></td>
+<td><p>GNU General Public License</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>GNU Lesser General Public License</p></td>
+<td><p>2.1</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>3.0</p></td>
+<td><p>Lesser General Public License</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Historical Permission Notice and Disclaimer</p></td>
+<td><p></p></td>
+<td><p>HPND</p></td>
+</tr>
+<tr class="row-even"><td><p>IBM Public LIcense</p></td>
+<td><p></p></td>
+<td><p>IBM Public License</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intel Open Source License</p></td>
+<td><p></p></td>
+<td><p>Intel Open Source License</p></td>
+</tr>
+<tr class="row-even"><td><p>ISC License</p></td>
+<td><p></p></td>
+<td><p>ISC License</p></td>
+</tr>
+<tr class="row-odd"><td><p>LaTeX Project Public License</p></td>
+<td><p>1.3c</p></td>
+<td><p>LaTeX Project Public License</p></td>
+</tr>
+<tr class="row-even"><td><p>Microsoft Public License</p></td>
+<td><p></p></td>
+<td><p>Ms-PL</p></td>
+</tr>
+<tr class="row-odd"><td><p>Microsoft Reciprocal License</p></td>
+<td><p></p></td>
+<td><p>Ms-RL</p></td>
+</tr>
+<tr class="row-even"><td><p>MirOS License</p></td>
+<td><p></p></td>
+<td><p>MirOS</p></td>
+</tr>
+<tr class="row-odd"><td><p>MIT License</p></td>
+<td><p></p></td>
+<td><p>MIT License</p></td>
+</tr>
+<tr class="row-even"><td><p>MIT No Attribution</p></td>
+<td><p></p></td>
+<td><p>MIT No Attribution</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mozilla Public License</p></td>
+<td><p>2.0</p></td>
+<td><p>Mozilla Public License</p></td>
+</tr>
+<tr class="row-even"><td><p>Mulan Permissive Software License</p></td>
+<td><p>2.0</p></td>
+<td><p>MulanPSL2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Netizen Open Source License</p></td>
+<td><p></p></td>
+<td><p>Netizen</p></td>
+</tr>
+<tr class="row-even"><td><p>Netscape Public License</p></td>
+<td><p></p></td>
+<td><p>Netscape Public License</p></td>
+</tr>
+<tr class="row-odd"><td><p>Nokia Open Source License</p></td>
+<td><p></p></td>
+<td><p>Nokia Open Source License</p></td>
+</tr>
+<tr class="row-even"><td><p>Open Database License</p></td>
+<td><p>1.0</p></td>
+<td><p>ODbL</p></td>
+</tr>
+<tr class="row-odd"><td><p>Open Data Commons Attribution License</p></td>
+<td><p></p></td>
+<td><p>Open Data Commons Attribution License</p></td>
+</tr>
+<tr class="row-even"><td><p>Open Software License</p></td>
+<td><p>3.0</p></td>
+<td><p>Open Software License</p></td>
+</tr>
+<tr class="row-odd"><td><p>PostgreSQL License</p></td>
+<td><p></p></td>
+<td><p>PostgreSQL License</p></td>
+</tr>
+<tr class="row-even"><td><p>Python Software Foundation License</p></td>
+<td><p></p></td>
+<td><p>Python Software Foundation License</p></td>
+</tr>
+<tr class="row-odd"><td><p>Python License</p></td>
+<td><p></p></td>
+<td><p>Python License</p></td>
+</tr>
+<tr class="row-even"><td><p>Public Domain</p></td>
+<td><p></p></td>
+<td><p>Public Domain</p></td>
+</tr>
+<tr class="row-odd"><td><p>Q Public License</p></td>
+<td><p></p></td>
+<td><p>Q Public License</p></td>
+</tr>
+<tr class="row-even"><td><p>RealNetworks Public License</p></td>
+<td><p></p></td>
+<td><p>RealNetworks Public License</p></td>
+</tr>
+<tr class="row-odd"><td><p>Repoze Public License</p></td>
+<td><p></p></td>
+<td><p>Repoze</p></td>
+</tr>
+<tr class="row-even"><td><p>SIL Open Font License</p></td>
+<td><p>1.1</p></td>
+<td><p>SIL Open Font License</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sleepycat License</p></td>
+<td><p></p></td>
+<td><p>Sleepycat</p></td>
+</tr>
+<tr class="row-even"><td><p>Sun Public License</p></td>
+<td><p></p></td>
+<td><p>Sun Public License</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sybase Open Watcom Public License</p></td>
+<td><p></p></td>
+<td><p>Watcom</p></td>
+</tr>
+<tr class="row-even"><td><p>Universal Permissive License</p></td>
+<td><p>1.0</p></td>
+<td><p>Universal Permissive License</p></td>
+</tr>
+<tr class="row-odd"><td><p>University of Illinois/NCSA Open Source License</p></td>
+<td><p></p></td>
+<td><p>NCSA</p></td>
+</tr>
+<tr class="row-even"><td><p>Unlicense</p></td>
+<td><p></p></td>
+<td><p>unlicense</p></td>
+</tr>
+<tr class="row-odd"><td><p>VIM License</p></td>
+<td><p></p></td>
+<td><p>VIM LICENSE</p></td>
+</tr>
+<tr class="row-even"><td><p>Vovida Software License</p></td>
+<td><p></p></td>
+<td><p>Vovida</p></td>
+</tr>
+<tr class="row-odd"><td><p>W3C License</p></td>
+<td><p></p></td>
+<td><p>W3C License</p></td>
+</tr>
+<tr class="row-even"><td><p>X.Net License</p></td>
+<td><p></p></td>
+<td><p>X.Net License</p></td>
+</tr>
+<tr class="row-odd"><td><p>zlib License</p></td>
+<td><p></p></td>
+<td><p>zlib Licenqs</p></td>
+</tr>
+<tr class="row-even"><td><p>Zope Public License</p></td>
+<td><p></p></td>
+<td><p>Zope</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>Source: <a class="reference external" href="https://github.com/licensee/licensee/blob/master/lib/licensee/project_files/license_file.rb#L34">https://github.com/licensee/licensee/blob/master/lib/licensee/project_files/license_file.rb#L34</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The aforementioned list is pending modification to better work with the set <strong>PyPI</strong> uses</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PYPI_LIC</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Aladdin Free Public License (AFPL)"</span><span class="p">,</span>
+    <span class="s2">"CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"</span><span class="p">,</span>
+    <span class="s2">"CeCILL-B Free Software License Agreement (CECILL-B)"</span><span class="p">,</span>
+    <span class="s2">"CeCILL-C Free Software License Agreement (CECILL-C)"</span><span class="p">,</span>
+    <span class="s2">"DFSG approved"</span><span class="p">,</span>
+    <span class="s2">"Eiffel Forum License (EFL)"</span><span class="p">,</span>
+    <span class="s2">"Free For Educational Use"</span><span class="p">,</span>
+    <span class="s2">"Free For Home Use"</span><span class="p">,</span>
+    <span class="s2">"Free To Use But Restricted"</span><span class="p">,</span>
+    <span class="s2">"Free for non-commercial use"</span><span class="p">,</span>
+    <span class="s2">"Freely Distributable"</span><span class="p">,</span>
+    <span class="s2">"Freeware"</span><span class="p">,</span>
+    <span class="s2">"GUST Font License 1.0"</span><span class="p">,</span>
+    <span class="s2">"GUST Font License 2006-09-30"</span><span class="p">,</span>
+    <span class="s2">"Netscape Public License (NPL)"</span><span class="p">,</span>
+    <span class="s2">"Nokia Open Source License (NOKOS)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Academic Free License (AFL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Apache Software License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Apple Public Source License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Artistic License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Attribution Assurance License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: BSD License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Boost Software License 1.0 (BSL-1.0)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Common Development and Distribution License 1.0 (CDDL-1.0)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Common Public License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Eiffel Forum License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: European Union Public Licence 1.0 (EUPL 1.0)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU Affero General Public License v3"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU Free Documentation License (FDL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU General Public License (GPL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU General Public License v2 (GPLv2)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU General Public License v2 or later (GPLv2+)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU General Public License v3 (GPLv3)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU General Public License v3 or later (GPLv3+)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: GNU Library or Lesser General Public License (LGPL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Historical Permission Notice and Disclaimer (HPND)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: IBM Public License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: ISC License (ISCL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Intel Open Source License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Jabber Open Source License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: MIT License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: MIT No Attribution License (MIT-0)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: MirOS License (MirOS)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Motosoto License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Mozilla Public License 1.0 (MPL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Mozilla Public License 1.1 (MPL 1.1)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Nethack General Public License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Nokia Open Source License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Open Group Test Suite License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Open Software License 3.0 (OSL-3.0)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: PostgreSQL License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Python License (CNRI Python License)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Python Software Foundation License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Qt Public License (QPL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Ricoh Source Code Public License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: SIL Open Font License 1.1 (OFL-1.1)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Sleepycat License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Sun Industry Standards Source License (SISSL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Sun Public License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: The Unlicense (Unlicense)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Universal Permissive License (UPL)"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: University of Illinois/NCSA Open Source License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Vovida Software License 1.0"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: W3C License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: X.Net License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: Zope Public License"</span><span class="p">,</span>
+    <span class="s2">"OSI Approved :: zlib/libpng License"</span><span class="p">,</span>
+    <span class="s2">"Other/Proprietary License"</span><span class="p">,</span><span class="o">/</span><span class="mi">1</span><span class="n">_Overview</span><span class="o">.</span><span class="n">html</span><span class="c1">#</span>
+    <span class="s2">"Public Domain"</span><span class="p">,</span>
+    <span class="s2">"Repoze Public Licens/1_Overview.html#e"</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="python.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Handling Python</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="Execution_Pipeline.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Execution Pipeline</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, DeepSource
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>

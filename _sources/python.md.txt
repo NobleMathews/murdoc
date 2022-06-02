@@ -1,0 +1,25 @@
+# Handling Python 
+
+The following files (in order of precedence) are analysed
+
+## poetry/pyproject .toml
+
+Contains Name, Version, License and Dependency Info
+
+Checks the classifiers info supplied for NPM registry indexing to populate missing fields specifically Language Version requirements and license info
+
+## setup.py/setup.cfg
+
+The parser to handle [setup.py](http://setup.py) and setup.cfg is defined in the `setup_reader.py` file which is a modification of [Setup Reader as implemented by Poetry](https://github.com/python-poetry/poetry/blob/master/src/poetry/utils/setup_reader.py).  This version adds a few more checks to ensure fields have a higher chance of being populated and fixes few issues encountered when working with the original file. 
+
+Since setup.py content can be very dynamic the parser does NOT cover all edge cases these should be added as per feasibility when encountered
+
+## requirements.txt
+
+One can only expect to get a list of dependencies from this file
+
+All requirement related text used the `parse_requirements` function from the `Package resource API` (`pkg_resources`). Given a string similar to the content of requirements.txt it handles comments and  line continuations to return a list of requirement objects. “specs” key of the returned object is currently not properly handled and only “==” specifier works as intended. Ideally we should check for all versions satisfying the relative specifier but this can be intensive.
+
+## tox.ini, conda.yml, pipfile and pipfile.lock
+
+These are handled by the parse function in the `dparse2` library. Only a list of dependencies is extracted just to start the task in case any of these are provided.

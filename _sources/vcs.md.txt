@@ -1,0 +1,16 @@
+# Handling VCS 
+
+Murdock currently only supports GitHub for retrieving information directly from the git repository. 
+
+- If missing keys are present and repository URL is available, Murdock scans dependency and license files available in the source
+- Dependency files are chosen from the repository on each run based on the order of priority declared in the sections pertaining to each language 
+
+:::{note}
+To avoid conflicts the information from the previous steps is never overwritten and only missing information is appended in each iteration
+:::
+
+## Rate Limits
+
+Murdock internally checks for the amount of API requests remaining and sleeps until the reset time if the quota is exhausted
+
+As long as the GitHub Token secret is available Murdock is subject to a rate limit of 5,000 requests per hour. If the package is run without authentication this limit reduces to 60 per hour.

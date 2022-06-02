@@ -1,0 +1,47 @@
+# MURDOC 
+
+Welcome to murdock's documentation!
+
+Murdock is a package analyzer written in [Python 3.10](https://www.python.org/) for 
+analysing sub-dependencies chains of packages in multiple languages. It is designed 
+to be easily extensible and serve as a basis for license, vulnerability and deprecation
+checks across the dependency chain.
+
+:::{note}
+Murdock can process Python, JavaScript, Go, Rust and PHP projects. GitHub is the only VCS provider currently supported. 
+:::
+
+```{toctree}
+---
+caption: |
+    Murdock:
+---
+
+1_Overview
+Execution_Pipeline
+z_Licenses
+```
+
+```{toctree}
+---
+caption: |
+    Language Specific:
+---
+
+python
+go
+javascript
+java
+rust
+php
+vcs
+```
+
+```{toctree}
+---
+caption: |
+    Contributing:
+---
+
+2_Adding_Language_Support
+```

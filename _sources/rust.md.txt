@@ -1,0 +1,12 @@
+# Handling Rust
+
+Same as with python this is missing logic for understanding package specifier  
+
+```
+https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html
+ignores tilde, wildcard, comparison, multiple
+```
+
+toml files handled similar to python
+
+for lock files the name, version and dependencies are obtained using regex queries

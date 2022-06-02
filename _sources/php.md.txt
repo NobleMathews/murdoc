@@ -1,0 +1,3 @@
+# Handling PHP 
+
+Composer.json is read using json.load in python and rest is straightforward. We can obtain language version requirements, package name, version, license and dependencies.

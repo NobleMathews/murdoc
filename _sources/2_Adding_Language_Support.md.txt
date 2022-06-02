@@ -1,0 +1,40 @@
+# Adding Support for a new language
+
+This section goes over the sections of code that need to be modified to support a new language say "lang".
+
+- Add in the language to the list of supported languages 
+    > cli.py 
+    ```
+    if lang not in ["go", "python", "javascript", "rust", "php", "lang"]:
+    ```
+- Modify the core Inspector which handles the execution pipeline
+  - Extend the `make_url` function logic to generate the url to the API endpoint for information about a specific package
+  - Extend the match cases in `make_single_request` function to support "lang"
+- Update dictionaries with keys required for the language
+  - add in file names to be checked for dependency information
+    > constants.py
+    ```
+    REQ_FILES = {
+    ...
+    "lang": [file.ext, file2.ext]
+    }
+    ```
+  - define constants that might change with time to handle api responses if any for the language. Add keys especially for fields that can change as the API spec is updated
+    > constants.py
+    ```
+    REGISTRY = {
+    ...
+    "lang": {
+        "custom": "query",
+    },
+    ```
+- Create a worker for the language in `dependencies/lang/lang_worker.py` with functions to parse the dependency files used in packages written in "lang"
+- Extend the "handle_dep_file" function in `dependencies/helper.py` and add in new functions to handle API response for a specific version of a package.
+  - Add a function say `lang_versions` that returns a list of available versions of a package
+:::{caution}
+In some cases it might be easier to info about all versions of a package in a single go, based on how the API endpoint supplies information. However since this is not usually the case Murdock assumes that single version based API requests are the most efficient and the info from the API can be used to provide a list of versions that exist for the package.
+::: 
+- Add tests to verify all added features and responses expected for the new language
+  - Add tests for information retrieved from the corresponding dependency files in `test_dependency_files`
+  - Add any required sample files to `tests/data`
+  - Add tests for the API based response expected from Murdock in `test_inspector.py`

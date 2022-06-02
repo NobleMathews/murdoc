@@ -1,0 +1,71 @@
+# Overview
+ 
+The following diagram gives a general overview of the architecture of Murdock.
+
+![Workflow](images/diag.png)
+
+## How to invoke Murdock
+
+Murdock can be triggered in either of the following ways
+- passing in a list of packages
+  - ```python cli.py --lang python --packages yourpackage@version,anotherpackage@version,versionlessquery```
+- passing in a dependency file of a package
+  - ```python cli.py --lang rust --dep-file ./Cargo.toml```
+
+### Command-line Flags
+All the command-line flags can be obtained by running ```python cli.py --help```:
+
+    :param lang:        go, python, rust, php or javascript
+    :param packages:    list of packages to check separated by 
+                        commas if no version is passed all versions 
+                        are checked for
+    :param dep_file:    location of file to parse for packages instead 
+                        of previous field
+    :param db_name:     Postgres database to be used
+    :param deep_search: when true populating all fields is attempted
+
+## Dependency Files
+
+|                                      | lang_ver | pkg_name | pkg_ver | pkg_lic | pkg_err | pkg_dep |
+|--------------------------------------|----------|----------|---------|---------|---------|---------|
+| GO                                   |          |          |         |         |         |         |
+| go.mod                               | ✅        | ✅        | ✅       | ❌       | ⚠️      | ✅       |
+| JS                                   |          |          |         |         |         |         |
+| yarn.lock                            | ❌        | ❌        | ❌       | ❌       |         | ✅       |
+| shrinkwrap/package_lock/package json | ✅        | ✅        | ✅       | ✅       |         | ✅       |
+| PY                                   |          |          |         |         |         |         |
+| requirements.txt                     | ❌        | ❌        | ❌       | ❌       |         | ✅       |
+| setup.py                             | ✅        | ✅        | ✅       | ✅       |         | ✅       |
+| setup.cfg                            | ✅        | ✅        | ✅       | ✅       |         | ✅       |
+| pyproject/poetry toml                | ✅        | ✅        | ✅       | ✅       |         | ✅       |
+
+## Output Schema
+
+```
+{
+    # pkg_name
+    r"^[^\S]+$": {
+        "import_name": str,
+        "versions": {
+            # pkg_ver
+            r"^[^\S]+$": {
+                {
+                    "lang_ver": list[str],
+                    "pkg_lic": list[str],
+                    "pkg_err": list[str],
+                    "pkg_dep": {
+                        # sub_dep name:ver
+                        r"^[^\S]+$": str
+                    },
+                    'timestamp': str
+                }
+            }
+        }
+    }
+}
+```
+
+:::{hint}
+If you intend to further process Murdock's output it might be easier to work with the format before schema is enforced, you can check this out by setting 'force_schema' to False wherever applicable
+:::
+

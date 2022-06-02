@@ -1,0 +1,25 @@
+# Execution Pipeline
+
+Murdock can be used to process the dependency files in any language and return the processed information as a json file or its primary goal which is to populate all the required information about the direct sub-dependencies of the packages specified.
+
+If supplied a supported dependency file for a language it uses the declared dependencies as the list of packages to proceed with.
+
+:::{hint}
+Setting the cli parameter `deep_search` to false will return only the information which can be obtained from the dependency file
+:::
+
+- If the version is specified
+  - The database is checked for a entry
+    - If the entry exists and is not older than the specified "CACHE_EXPIRY" it is returned
+  - The API endpoint is invoked for the language and the information is processed
+  - In case of missing fields the source is queried if a supported VCS based repo can be found
+  - The information in the database is updated
+  - Once the entire payload is processed the output is returned and printed onto the console
+- If the version is not specified
+  - The endpoint is invoked to obtain a list of available versions
+  - The aforementioned sequence is repeated for each one of the versions
+
+Language specific assumptions, issues and sources used are detailed in the individual sections
+
+
+
